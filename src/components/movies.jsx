@@ -70,6 +70,17 @@ class Movies extends Component {
       sortColumn,
     });
   };
+
+  refactorMovies(movies, selectedGenre, currentPage, postPerPage, sortColumn) {
+    const filtered = this.filterMovies(movies, selectedGenre);
+    const lastIndexOfPage = currentPage * postPerPage;
+    const firstIndexOfPage = lastIndexOfPage - postPerPage;
+
+    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
+
+    const paginatedPage = sorted.slice(firstIndexOfPage, lastIndexOfPage);
+    return { paginatedPage, filtered };
+  }
   render() {
     const {
       genres,
@@ -79,14 +90,13 @@ class Movies extends Component {
       postPerPage,
       sortColumn,
     } = this.state;
-    const filtered = this.filterMovies(movies, selectedGenre);
-    const lastIndexOfPage = currentPage * postPerPage;
-    const firstIndexOfPage = lastIndexOfPage - postPerPage;
-
-    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
-
-    const paginatedPage = sorted.slice(firstIndexOfPage, lastIndexOfPage);
-    const pageCount = Math.ceil(filtered.length / postPerPage);
+    const { paginatedPage, filtered } = this.refactorMovies(
+      movies,
+      selectedGenre,
+      currentPage,
+      postPerPage,
+      sortColumn
+    );
 
     return (
       <div className="row">
@@ -106,7 +116,7 @@ class Movies extends Component {
             sortColumn={sortColumn}
           />
           <Pagination
-            pageCount={pageCount}
+            pageCount={Math.ceil(filtered.length / postPerPage)}
             onSelectCurrentPage={this.onSelectCurrentPage}
             currentPage={currentPage}
           />
