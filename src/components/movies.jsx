@@ -14,6 +14,7 @@ class Movies extends Component {
       currentPage: 1,
       postPerPage: 4,
       selectedGenre: undefined,
+      sortColumn: { path: "title", order: "asc" },
     };
   }
 
@@ -63,14 +64,28 @@ class Movies extends Component {
       currentPage,
     });
   };
+
+  onHandleSort = (sortColumn) => {
+    this.setState({
+      sortColumn,
+    });
+  };
   render() {
-    const { genres, movies, selectedGenre, currentPage, postPerPage } =
-      this.state;
+    const {
+      genres,
+      movies,
+      selectedGenre,
+      currentPage,
+      postPerPage,
+      sortColumn,
+    } = this.state;
     const filtered = this.filterMovies(movies, selectedGenre);
     const lastIndexOfPage = currentPage * postPerPage;
     const firstIndexOfPage = lastIndexOfPage - postPerPage;
 
-    const paginatedPage = filtered.slice(firstIndexOfPage, lastIndexOfPage);
+    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
+
+    const paginatedPage = sorted.slice(firstIndexOfPage, lastIndexOfPage);
     const pageCount = Math.ceil(filtered.length / postPerPage);
 
     return (
@@ -87,6 +102,8 @@ class Movies extends Component {
             movies={paginatedPage}
             onHandleLike={this.onHandleLike}
             onHandleDelete={this.onHandleDelete}
+            onHandleSort={this.onHandleSort}
+            sortColumn={sortColumn}
           />
           <Pagination
             pageCount={pageCount}

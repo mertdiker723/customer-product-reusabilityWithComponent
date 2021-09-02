@@ -37,8 +37,15 @@ export default class MovieTable extends Component {
   }
 
   render() {
-    const { movies } = this.props;
+    const { movies, onHandleSort, sortColumn } = this.props;
     const { columns } = this.state;
-    return <Table data={movies} columns={columns} />;
+    return (
+      <Table
+        data={movies}
+        columns={columns}
+        onHandleSort={onHandleSort}
+        sortColumn={sortColumn}
+      />
+    );
   }
 }
