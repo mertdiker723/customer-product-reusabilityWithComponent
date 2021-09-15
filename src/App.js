@@ -5,6 +5,7 @@ import Home from './components/Home';
 import Customers from './components/Customers';
 import Products from './components/Products';
 import NotFound from './components/Not-Found';
+import './App.css';
 class App extends Component {
   render() {
     return (

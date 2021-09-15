@@ -5,5 +5,5 @@ export const countries = [
 ];
 
 export function getCountries() {
-  return genres.filter(g => g);
+  return countries.filter(g => g);
 }
