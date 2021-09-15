@@ -1,14 +1,17 @@
-import React from "react";
+import React, { Component } from "react";
 import _ from "lodash";
 
-const Table = ({ columns, data }) => {
-  return (
-    <table className="table">
-      <TableHeader columns={columns} />
-      <TableBody data={data} columns={columns} />
-    </table>
-  );
-};
+class Table extends Component {
+  render() {
+    const { columns, data } = this.props;
+    return (
+      <table className="table">
+        <TableHeader columns={columns} />
+        <TableBody data={data} columns={columns} />
+      </table>
+    );
+  }
+}
 
 const TableHeader = ({ columns }) => {
   return (

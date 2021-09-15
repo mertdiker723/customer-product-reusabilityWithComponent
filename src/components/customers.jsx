@@ -63,8 +63,7 @@ class Customers extends Component {
 
     const indexOfLastPost = currentPage * postPerPage;
     const indexOfFirstPost = indexOfLastPost - postPerPage;
-    console.log("Last Post: ", indexOfLastPost);
-    console.log("First Post: ", indexOfFirstPost);
+
     const filteredCustomers =
       selectedGender && selectedGender._id
         ? customers.filter(
