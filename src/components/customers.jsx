@@ -4,7 +4,6 @@ import { getCustomers } from "../services/fakeCustomerService";
 import _ from "lodash";
 import ListGroup from "./common/ListGroup";
 import { getGenders } from "../services/fakeGenderService";
-import Pagination from "./common/Pagination";
 
 class Customers extends Component {
   constructor(props) {
@@ -13,8 +12,6 @@ class Customers extends Component {
       customers: [],
       genders: [],
       selectedGender: undefined,
-      currentPage: 1,
-      postPerPage: 4,
     };
   }
   componentDidMount() {
@@ -48,21 +45,11 @@ class Customers extends Component {
   filteredGenders = (item) => {
     this.setState({
       selectedGender: item,
-      currentPage: 1,
-    });
-  };
-  onPaginationChange = (item) => {
-    this.setState({
-      currentPage: item,
     });
   };
 
   render() {
-    const { customers, genders, selectedGender, postPerPage, currentPage } =
-      this.state;
-
-    const indexOfLastPost = currentPage * postPerPage;
-    const indexOfFirstPost = indexOfLastPost - postPerPage;
+    const { customers, genders, selectedGender } = this.state;
 
     const filteredCustomers =
       selectedGender && selectedGender._id
@@ -71,11 +58,6 @@ class Customers extends Component {
           )
         : customers;
 
-    const currentPosts = filteredCustomers.slice(
-      indexOfFirstPost,
-      indexOfLastPost
-    );
-    const lengthPerPage = Math.ceil(filteredCustomers.length / postPerPage);
     return (
       <div>
         <h1>Customers</h1>
@@ -95,13 +77,10 @@ class Customers extends Component {
           </div>
           <div className="col-md-9">
             <CustomersTable
-              customers={currentPosts}
+              customers={filteredCustomers}
               onLike={this.onLike}
               onDeleteHandle={this.onDeleteHandle}
-            />
-            <Pagination
-              lengthPerPage={lengthPerPage}
-              onClick={this.onPaginationChange}
+              selectedGender={selectedGender}
             />
           </div>
         </div>

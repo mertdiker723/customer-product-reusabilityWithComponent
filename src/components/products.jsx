@@ -78,6 +78,7 @@ class Products extends Component {
               data={filteredProducts}
               onLike={this.onLike}
               onDeleteHandle={this.onDeleteHandle}
+              selectedCountry={selectedCountry}
             />
           </div>
         </div>

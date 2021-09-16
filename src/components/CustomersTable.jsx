@@ -38,8 +38,10 @@ class CustomersTable extends Component {
   }
   render() {
     const { columns } = this.state;
-    const { customers } = this.props;
-    return <Table columns={columns} data={customers} />;
+    const { customers, selectedGender } = this.props;
+    return (
+      <Table columns={columns} data={customers} selectedItem={selectedGender} />
+    );
   }
 }
 

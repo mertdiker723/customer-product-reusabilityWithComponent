@@ -14,7 +14,7 @@ const Pagination = ({ lengthPerPage, onClick }) => {
             className="page-item cursor-poiner"
             onClick={() => onClick(item)}
           >
-            <a className="page-link">{item}</a>
+            <p className="page-link">{item}</p>
           </li>
         );
       })}

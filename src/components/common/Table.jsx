@@ -1,14 +1,48 @@
 import React, { Component } from "react";
 import _ from "lodash";
+import Pagination from "./Pagination";
 
 class Table extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentPage: 1,
+      postPerPage: 4,
+    };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.selectedItem !== this.props.selectedItem) {
+      this.setState({
+        currentPage: 1,
+      });
+    }
+  }
+
+  onPaginationChange = (item) => {
+    this.setState({
+      currentPage: item,
+    });
+  };
+
   render() {
     const { columns, data } = this.props;
+    const { currentPage, postPerPage } = this.state;
+    const indexOfLastPost = currentPage * postPerPage;
+    const indexOfFirstPost = indexOfLastPost - postPerPage;
+
+    const currentPosts = data.slice(indexOfFirstPost, indexOfLastPost);
     return (
-      <table className="table">
-        <TableHeader columns={columns} />
-        <TableBody data={data} columns={columns} />
-      </table>
+      <React.Fragment>
+        <table className="table">
+          <TableHeader columns={columns} />
+          <TableBody data={currentPosts} columns={columns} />
+        </table>
+        <Pagination
+          lengthPerPage={Math.ceil(data.length / postPerPage)}
+          onClick={this.onPaginationChange}
+        />
+      </React.Fragment>
     );
   }
 }

@@ -34,10 +34,10 @@ class ProductsTable extends Component {
   }
   render() {
     const { columns } = this.state;
-    const { data } = this.props;
+    const { data, selectedCountry } = this.props;
     return (
       <div>
-        <Table columns={columns} data={data} />
+        <Table columns={columns} data={data} selectedItem={selectedCountry} />
       </div>
     );
   }
