@@ -1,6 +1,6 @@
 import React from "react";
 
-const Pagination = ({ lengthPerPage, onClick }) => {
+const Pagination = ({ lengthPerPage, onClick, currentPage }) => {
   let array = [];
   for (let i = 1; i <= lengthPerPage; i++) {
     array.push(i);
@@ -11,7 +11,9 @@ const Pagination = ({ lengthPerPage, onClick }) => {
         return (
           <li
             key={item}
-            className="page-item cursor-poiner"
+            className={`page-item cursor-poiner ${
+              currentPage === item && "active"
+            }`}
             onClick={() => onClick(item)}
           >
             <p className="page-link">{item}</p>
