@@ -12,6 +12,7 @@ class Customers extends Component {
     this.state = {
       customers: [],
       genders: [],
+      countries: [],
       selectedGender: undefined,
     };
   }

@@ -40,3 +40,7 @@
 .cursor-poiner {
   cursor: pointer;
 }
+
+.validation-color {
+  color: rgb(248, 46, 46);
+}
