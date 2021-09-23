@@ -4,6 +4,7 @@ import { getCustomers } from "../services/fakeCustomerService";
 import _ from "lodash";
 import ListGroup from "./common/ListGroup";
 import { getGenders } from "../services/fakeGenderService";
+import Button from "./common/Button";
 
 class Customers extends Component {
   constructor(props) {
@@ -50,7 +51,7 @@ class Customers extends Component {
 
   render() {
     const { customers, genders, selectedGender } = this.state;
-
+    const { history, location, match } = this.props;
     const filteredCustomers =
       selectedGender && selectedGender._id
         ? customers.filter(
@@ -75,7 +76,13 @@ class Customers extends Component {
               Get All
             </button>
           </div>
+
           <div className="col-md-9">
+            <Button
+              label={"Add New Customer"}
+              className={"btn btn-primary mb-3"}
+              onClick={() => history.push("/customers/new")}
+            />
             <CustomersTable
               customers={filteredCustomers}
               onLike={this.onLike}

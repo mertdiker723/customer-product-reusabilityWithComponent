@@ -39,7 +39,7 @@ const products = [
     },
     {
         _id: "5b21ca3eeb7f6fbccd47181b",
-        title: "Çamaşır Makinesi",
+        title: "Camaşır Makinesi",
         brand: { _id: 3, name: "Samsung" },
         country: { _id: "5b21ca3eeb7f6fbccd471814", name: "Greece" },
         liked: false

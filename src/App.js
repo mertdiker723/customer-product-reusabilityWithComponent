@@ -6,6 +6,7 @@ import Customers from './components/Customers';
 import Products from './components/Products';
 import NotFound from './components/Not-Found';
 import './App.css';
+import CustomerForm from './components/CustomerForm';
 class App extends Component {
   render() {
     return (
@@ -14,7 +15,8 @@ class App extends Component {
           <Navbar />
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route path="/customers" component={Customers} />
+            <Route path="/customers" exact component={Customers} />
+            <Route path="/customers/new" component={CustomerForm} />
             <Route path="/products" component={Products} />
             <Route path="/not-found" component={NotFound} />
             <Redirect to="/not-found" component={NotFound} />

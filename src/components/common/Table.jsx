@@ -68,9 +68,9 @@ const TableHeader = ({ columns, onSort, sortColumn: headerColumn }) => {
       sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
     } else {
       sortColumn.path = path;
+      setCount(2);
       sortColumn.order = "asc";
     }
-
     if (counter === 3) {
       sortColumn.path = "";
       onSort(sortColumn);
