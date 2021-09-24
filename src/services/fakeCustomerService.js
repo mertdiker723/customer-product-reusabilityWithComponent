@@ -88,9 +88,9 @@ export function getCustomer(id) {
 export function saveCustomer(customer) {
   let customerInDb = customers.find(m => m._id === customer._id) || {};
   customerInDb.title = customer.title;
-  customerInDb.country = countriesAPI.countries.find(c => c._id === customer.countriesId);
+  customerInDb.country = countriesAPI.countries.find(c => c._id === customer.countryId);
   customerInDb.age = customer.age;
-  customerInDb.gender = gendersAPI.genders.find(g => g._id === customer.genderId);
+  customerInDb.gender = gendersAPI.genders.find(g => g._id === +customer.genderId);
 
   if (!customerInDb._id) {
     customerInDb._id = Date.now().toString();

@@ -6,6 +6,7 @@ const Input = ({
   type = "text",
   label,
   onChange,
+  value,
   placeholder,
   errors,
 }) => {
@@ -16,6 +17,7 @@ const Input = ({
         id={id}
         name={name}
         type={type}
+        value={value}
         onChange={onChange}
         className="form-control"
         placeholder={placeholder}
