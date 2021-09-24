@@ -53,16 +53,29 @@ class CustomerForm extends Component {
     return errors;
   };
 
-  validatePropery = () => {};
+  validatePropery = (name, value) => {
+    const obj = { [name]: value };
+    const schemaObj = { [name]: this.schema[name] };
+    const { error } = Joi.validate(obj, schemaObj);
+    return error ? error.details[0].message : null;
+  };
 
   onHandleChange = ({ target: input }) => {
     const name = input.name;
-    const { customer: c } = this.state;
+    const { customer: c, errors: e } = this.state;
+    const errorMessage = this.validatePropery(input.name, input.value);
+
+    const errors = { ...e };
+    if (errorMessage) {
+      errors[name] = errorMessage;
+    } else delete errors[name];
+
     const customer = { ...c };
     customer[name] = input.value;
 
     this.setState({
       customer,
+      errors,
     });
   };
   onSubmit = (e) => {
@@ -79,44 +92,56 @@ class CustomerForm extends Component {
   };
   render() {
     const { errors, countries, genders, customer } = this.state;
-
     return (
       <div>
         <h1>Movie Form</h1>
-        <form className="w-50" onSubmit={this.onSubmit}>
-          <Input
-            id={"title"}
-            name={"title"}
-            label={"Title"}
-            onChange={this.onHandleChange}
-            placeholder={"Title"}
-            errors={errors["title"]}
-          />
-          <Select
-            name={"countryId"}
-            label={"Country"}
-            value={customer["countryId"]}
-            options={countries}
-            onChange={this.onHandleChange}
-            errors={errors["countryId"]}
-          />
-          <Input
-            id={"age"}
-            name={"age"}
-            type={"number"}
-            label={"Age"}
-            onChange={this.onHandleChange}
-            placeholder={"Age"}
-            errors={errors["age"]}
-          />
-          <Select
-            name={"genderId"}
-            label={"Gender"}
-            value={customer["genderId"]}
-            options={genders}
-            onChange={this.onHandleChange}
-            errors={errors["genderId"]}
-          />
+        <form onSubmit={this.onSubmit}>
+          <div className="row mt-3">
+            <div className="col-md-6">
+              <Input
+                id={"title"}
+                name={"title"}
+                label={"Title"}
+                onChange={this.onHandleChange}
+                placeholder={"Title"}
+                errors={errors["title"]}
+              />
+            </div>
+            <div className="col-md-6">
+              <Input
+                id={"age"}
+                name={"age"}
+                type={"number"}
+                label={"Age"}
+                onChange={this.onHandleChange}
+                placeholder={"Age"}
+                errors={errors["age"]}
+              />
+            </div>
+          </div>
+
+          <div className="row mt-3">
+            <div className="col-md-6">
+              <Select
+                name={"countryId"}
+                label={"Country"}
+                value={customer["countryId"]}
+                options={countries}
+                onChange={this.onHandleChange}
+                errors={errors["countryId"]}
+              />
+            </div>
+            <div className="col-md-6">
+              <Select
+                name={"genderId"}
+                label={"Gender"}
+                value={customer["genderId"]}
+                options={genders}
+                onChange={this.onHandleChange}
+                errors={errors["genderId"]}
+              />
+            </div>
+          </div>
 
           <Button label="Send" className="btn btn-primary" />
         </form>
