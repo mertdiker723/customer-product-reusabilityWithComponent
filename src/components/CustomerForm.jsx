@@ -3,8 +3,7 @@ import Joi from "joi-browser";
 import { getCountries } from "../services/fakeCountryService";
 import { getGenders } from "../services/fakeGenderService";
 import Form from "./common/Form";
-import { saveCustomer } from "./../services/fakeCustomerService";
-
+import { getCustomer, saveCustomer } from "./../services/fakeCustomerService";
 class CustomerForm extends Form {
   constructor(props) {
     super(props);
@@ -21,17 +20,40 @@ class CustomerForm extends Form {
     };
   }
   componentDidMount() {
+    const { match } = this.props;
     this.setState({
       countries: getCountries(),
       genders: getGenders(),
     });
+
+    if (match.params.id === "new") {
+      return null;
+    }
+    const customer = getCustomer(match.params.id);
+    if (!customer) {
+      return this.props.history.replace("/not-found");
+    }
+    this.setState({
+      data: this.mapToViewModel(customer),
+    });
   }
 
+  mapToViewModel = (customer) => {
+    return {
+      _id: customer._id,
+      title: customer.title,
+      countryId: customer.country._id,
+      age: customer.age,
+      genderId: customer.gender._id,
+    };
+  };
+
   schema = {
+    _id: Joi.string(),
     title: Joi.string().required().label("Title"),
     countryId: Joi.string().required().label("Country"),
     age: Joi.number().required().label("Age"),
-    genderId: Joi.string().required().label("Gender"),
+    genderId: Joi.number().required().label("Gender"),
   };
 
   submitItems = () => {
@@ -43,6 +65,7 @@ class CustomerForm extends Form {
 
   render() {
     const { countries, genders } = this.state;
+
     return (
       <div>
         <h1>Movie Form</h1>

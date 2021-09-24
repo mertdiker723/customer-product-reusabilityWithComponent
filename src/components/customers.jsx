@@ -4,6 +4,7 @@ import { getCustomers } from "../services/fakeCustomerService";
 import _ from "lodash";
 import ListGroup from "./common/ListGroup";
 import { getGenders } from "../services/fakeGenderService";
+import { ToastContainer, toast } from "react-toastify";
 import Button from "./common/Button";
 
 class Customers extends Component {
@@ -28,11 +29,20 @@ class Customers extends Component {
     const findedCustomers = clonedCustomers.findIndex(
       (x) => x._id === data._id
     );
-    clonedCustomers[findedCustomers].liked =
-      !clonedCustomers[findedCustomers].liked;
-    this.setState({
-      customers: clonedCustomers,
-    });
+    const clonedCons = clonedCustomers[findedCustomers];
+    clonedCons.liked = !clonedCons.liked;
+    this.setState(
+      {
+        customers: clonedCustomers,
+      },
+      () => {
+        if (clonedCons.liked) {
+          toast.success(`${clonedCons.title} liked..!`);
+        } else {
+          toast.error(`${clonedCons.title} disliked..!`);
+        }
+      }
+    );
   };
 
   onDeleteHandle = (data) => {
@@ -40,6 +50,10 @@ class Customers extends Component {
     const filteredCustomers = customers.filter(
       (customer) => customer._id !== data._id
     );
+    if (data) {
+      toast.error(`${data.title} is deleted..!`);
+    }
+
     this.setState({
       customers: filteredCustomers,
     });
@@ -63,6 +77,7 @@ class Customers extends Component {
     return (
       <div>
         <h1>Customers</h1>
+        <ToastContainer />
         <div className="row mt-4">
           <div className="col-md-3">
             <ListGroup
@@ -80,10 +95,11 @@ class Customers extends Component {
 
           <div className="col-md-9">
             <Button
-              label={"Add New Customer"}
-              className={"btn btn-primary mb-3"}
               onClick={() => history.push("/customers/new")}
+              className="btn btn-primary mb-3"
+              label={"Add New Customer"}
             />
+
             <CustomersTable
               customers={filteredCustomers}
               onLike={this.onLike}

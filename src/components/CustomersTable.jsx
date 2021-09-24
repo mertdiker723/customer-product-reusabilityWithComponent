@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Table from "./common/Table";
 import Like from "./common/Like";
+import { Link } from "react-router-dom";
 
 class CustomersTable extends Component {
   constructor(props) {
@@ -10,6 +11,11 @@ class CustomersTable extends Component {
         {
           path: "title",
           label: "Title",
+          content: (customer) => {
+            return (
+              <Link to={`/customers/${customer._id}`}>{customer.title}</Link>
+            );
+          },
         },
         { path: "country.name", label: "Country" },
         { path: "age", label: "Age" },

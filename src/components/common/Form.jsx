@@ -58,11 +58,13 @@ class Form extends Component {
     if (errors) {
       return;
     }
+
     this.submitItems();
   };
 
   inputRender = (name, title) => {
     const { errors, data } = this.state;
+
     return (
       <Input
         id={name}
@@ -78,6 +80,7 @@ class Form extends Component {
 
   selectRender = (name, title, options) => {
     const { errors, data } = this.state;
+
     return (
       <Select
         name={name}
