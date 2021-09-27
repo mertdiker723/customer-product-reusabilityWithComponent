@@ -66,7 +66,7 @@ class Customers extends Component {
 
   render() {
     const { customers, genders, selectedGender } = this.state;
-    const { history, location, match } = this.props;
+    const { history } = this.props;
     const filteredCustomers =
       selectedGender && selectedGender._id
         ? customers.filter(
@@ -77,7 +77,7 @@ class Customers extends Component {
     return (
       <div>
         <h1>Customers</h1>
-        <ToastContainer />
+        <ToastContainer position="bottom-right" autoClose={2000} />
         <div className="row mt-4">
           <div className="col-md-3">
             <ListGroup

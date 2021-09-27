@@ -3,6 +3,7 @@ import Joi from "joi-browser";
 import { getCountries } from "../services/fakeCountryService";
 import { getGenders } from "../services/fakeGenderService";
 import Form from "./common/Form";
+import { toast } from "react-toastify";
 import { getCustomer, saveCustomer } from "./../services/fakeCustomerService";
 class CustomerForm extends Form {
   constructor(props) {
@@ -58,7 +59,15 @@ class CustomerForm extends Form {
 
   submitItems = () => {
     const { data } = this.state;
-    saveCustomer(data);
+    const savedCustomer = saveCustomer(data);
+
+    if (savedCustomer) {
+      if (data._id) {
+        toast.success(data.title + " updated..!");
+      } else if (!data._id) {
+        toast.success(data.title + " added..!");
+      }
+    }
 
     this.props.history.push("/customers");
   };
