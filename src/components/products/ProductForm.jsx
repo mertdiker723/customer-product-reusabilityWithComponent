@@ -1,9 +1,9 @@
 import React from "react";
-import { getBrands } from "../services/fakeBrandService";
-import { getCountries } from "../services/fakeCountryService";
+import { getBrands } from "../../services/fakeBrandService";
+import { getCountries } from "../../services/fakeCountryService";
 import Joi from "joi-browser";
-import Form from "./common/Form";
-import { getProduct, saveProduct } from "./../services/fakeProductService";
+import Form from "../common/Form";
+import { getProduct, saveProduct } from "../../services/fakeProductService";
 
 class ProductForm extends Form {
   constructor(props) {

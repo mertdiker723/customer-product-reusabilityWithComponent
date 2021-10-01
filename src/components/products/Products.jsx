@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import ListGroup from "./common/ListGroup";
-import { getProducts } from "./../services/fakeProductService";
-import { getCountries } from "../services/fakeCountryService";
+import ListGroup from "../common/ListGroup";
+import { getProducts } from "../../services/fakeProductService";
+import { getCountries } from "../../services/fakeCountryService";
 import ProductsTable from "./ProductsTable";
 import _ from "lodash";
-import Button from "./common/Button";
+import Button from "../common/Button";
 
 class Products extends Component {
   constructor(props) {

@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import Navbar from './components/Navbar';
 import { Route, Redirect, Switch } from 'react-router-dom'
 import Home from './components/Home';
-import Customers from './components/Customers';
-import Products from './components/Products';
+import Customers from './components/customers/Customers';
+import Products from './components/products/Products';
 import NotFound from './components/Not-Found';
-import CustomerForm from './components/CustomerForm';
+import CustomerForm from './components/customers/CustomerForm';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
-import ProductForm from './components/ProductForm';
+import ProductForm from './components/products/ProductForm';
 class App extends Component {
   render() {
     return (

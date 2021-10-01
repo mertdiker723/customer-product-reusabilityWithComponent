@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Table from "./common/Table";
-import Like from "./common/Like";
+import Table from "../common/Table";
+import Like from "../common/Like";
 import { Link } from "react-router-dom";
 
 class CustomersTable extends Component {

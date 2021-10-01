@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import CustomersTable from "./CustomersTable";
-import { getCustomers } from "../services/fakeCustomerService";
+import { getCustomers } from "../../services/fakeCustomerService";
 import _ from "lodash";
-import ListGroup from "./common/ListGroup";
-import { getGenders } from "../services/fakeGenderService";
+import ListGroup from "../common/ListGroup";
+import { getGenders } from "../../services/fakeGenderService";
 import { ToastContainer, toast } from "react-toastify";
-import Button from "./common/Button";
+import Button from "../common/Button";
 
 class Customers extends Component {
   constructor(props) {

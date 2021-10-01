@@ -1,10 +1,10 @@
 import React from "react";
 import Joi from "joi-browser";
-import { getCountries } from "../services/fakeCountryService";
-import { getGenders } from "../services/fakeGenderService";
-import Form from "./common/Form";
+import { getCountries } from "../../services/fakeCountryService";
+import { getGenders } from "../../services/fakeGenderService";
+import Form from "../common/Form";
 import { toast } from "react-toastify";
-import { getCustomer, saveCustomer } from "./../services/fakeCustomerService";
+import { getCustomer, saveCustomer } from "../../services/fakeCustomerService";
 class CustomerForm extends Form {
   constructor(props) {
     super(props);
