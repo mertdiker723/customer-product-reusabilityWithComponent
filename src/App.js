@@ -21,6 +21,7 @@ class App extends Component {
             <Route path="/customers/:id" exact component={CustomerForm} />
             <Route path="/customers/new" exact component={CustomerForm} />
             <Route path="/products" exact component={Products} />
+            <Route path="/products/:id" exact component={ProductForm} />
             <Route path="/products/new" exact component={ProductForm} />
             <Route path="/not-found" component={NotFound} />
             <Redirect to="/not-found" component={NotFound} />

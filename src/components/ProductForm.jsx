@@ -3,7 +3,7 @@ import { getBrands } from "../services/fakeBrandService";
 import { getCountries } from "../services/fakeCountryService";
 import Joi from "joi-browser";
 import Form from "./common/Form";
-import { saveProduct } from "./../services/fakeProductService";
+import { getProduct, saveProduct } from "./../services/fakeProductService";
 
 class ProductForm extends Form {
   constructor(props) {
@@ -27,11 +27,34 @@ class ProductForm extends Form {
   };
 
   componentDidMount() {
+    const { match, history } = this.props;
     this.setState({
       brands: getBrands(),
       countries: getCountries(),
     });
+
+    if (match.params.id === "new") {
+      return null;
+    }
+
+    const product = getProduct(match.params.id);
+
+    if (!product) {
+      return history.replace("/not-found");
+    }
+
+    this.setState({
+      data: this.mapToViewModel(product),
+    });
   }
+  mapToViewModel = (product) => {
+    return {
+      _id: product._id,
+      title: product.title,
+      countryId: product.country._id,
+      brandId: product.brand._id,
+    };
+  };
 
   submitItems = () => {
     const { data } = this.state;

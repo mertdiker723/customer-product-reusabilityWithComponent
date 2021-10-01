@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Like from "./common/Like";
 import Table from "./common/Table";
 
@@ -7,7 +8,13 @@ class ProductsTable extends Component {
     super(props);
     this.state = {
       columns: [
-        { path: "title", label: "Title" },
+        {
+          path: "title",
+          label: "Title",
+          content: (item) => {
+            return <Link to={`/products/${item._id}`}>{item.title}</Link>;
+          },
+        },
         { path: "brand.name", label: "Brand" },
         { path: "country.name", label: "Country" },
         {
