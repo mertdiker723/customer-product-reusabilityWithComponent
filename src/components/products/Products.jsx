@@ -51,7 +51,7 @@ class Products extends Component {
   };
   render() {
     const { products, countries, selectedCountry } = this.state;
-    const { history, location, match } = this.props;
+    const { history } = this.props;
     const filteredProducts =
       selectedCountry && selectedCountry._id
         ? products.filter(
