@@ -4,6 +4,7 @@ import { getProducts } from "./../services/fakeProductService";
 import { getCountries } from "../services/fakeCountryService";
 import ProductsTable from "./ProductsTable";
 import _ from "lodash";
+import Button from "./common/Button";
 
 class Products extends Component {
   constructor(props) {
@@ -50,12 +51,14 @@ class Products extends Component {
   };
   render() {
     const { products, countries, selectedCountry } = this.state;
+    const { history, location, match } = this.props;
     const filteredProducts =
       selectedCountry && selectedCountry._id
         ? products.filter(
             (product) => product.country._id === selectedCountry._id
           )
         : products;
+
     return (
       <div>
         <h1>Products</h1>
@@ -74,6 +77,11 @@ class Products extends Component {
             </button>
           </div>
           <div className="col-md-9">
+            <Button
+              onClick={() => history.push("/products/new")}
+              className="btn btn-primary mb-3"
+              label={"Add New Products"}
+            />
             <ProductsTable
               data={filteredProducts}
               onLike={this.onLike}

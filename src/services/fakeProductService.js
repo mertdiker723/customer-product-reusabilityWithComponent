@@ -58,8 +58,8 @@ export function getProduct(id) {
 export function saveProduct(product) {
     let productInDb = products.find(m => m._id === product._id) || {};
     productInDb.title = product.title;
-    productInDb.country = countriesAPI.countries.find(g => g._id === product.countriesId);
-    productInDb.brand = brandsAPI.brands.find(b => b._id === product.brandId);
+    productInDb.country = countriesAPI.countries.find(g => g._id === product.countryId);
+    productInDb.brand = brandsAPI.brands.find(b => b._id === +product.brandId);
 
     if (!productInDb._id) {
         productInDb._id = Date.now().toString();
