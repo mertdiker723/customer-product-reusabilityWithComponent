@@ -5,6 +5,7 @@ import { getCountries } from "../../services/fakeCountryService";
 import ProductsTable from "./ProductsTable";
 import _ from "lodash";
 import Button from "../common/Button";
+import { toast, ToastContainer } from "react-toastify";
 
 class Products extends Component {
   constructor(props) {
@@ -33,18 +34,30 @@ class Products extends Component {
     const findedIndex = clonedProducts.findIndex(
       (product) => product._id === data._id
     );
-    clonedProducts[findedIndex].liked = !clonedProducts[findedIndex].liked;
-    this.setState({
-      products: clonedProducts,
-    });
+    const clonedProd = clonedProducts[findedIndex];
+    clonedProd.liked = !clonedProd.liked;
+    this.setState(
+      {
+        products: clonedProducts,
+      },
+      () => {
+        if (clonedProd.liked) {
+          toast.success(`${clonedProd.title} liked..!`);
+        } else {
+          toast.error(`${clonedProd.title} disliked..!`);
+        }
+      }
+    );
   };
 
-  onDeleteHandle = (item) => {
+  onDeleteHandle = (data) => {
     const { products } = this.state;
     const deleteProduct = products.filter(
-      (product) => product._id !== item._id
+      (product) => product._id !== data._id
     );
-
+    if (data) {
+      toast.error(`${data.title} is deleted..!`);
+    }
     this.setState({
       products: deleteProduct,
     });
@@ -62,6 +75,7 @@ class Products extends Component {
     return (
       <div>
         <h1>Products</h1>
+        <ToastContainer position="bottom-right" autoClose={2000} />
         <div className="row mt-4">
           <div className="col-md-3">
             <ListGroup

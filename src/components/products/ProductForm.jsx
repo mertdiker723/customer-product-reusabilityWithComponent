@@ -1,6 +1,7 @@
 import React from "react";
 import { getBrands } from "../../services/fakeBrandService";
 import { getCountries } from "../../services/fakeCountryService";
+import { toast } from "react-toastify";
 import Joi from "joi-browser";
 import Form from "../common/Form";
 import { getProduct, saveProduct } from "../../services/fakeProductService";
@@ -21,6 +22,7 @@ class ProductForm extends Form {
   }
 
   schema = {
+    _id: Joi.string(),
     title: Joi.string().required().label("Title"),
     brandId: Joi.number().required().label("Brand"),
     countryId: Joi.string().required().label("Country"),
@@ -59,7 +61,15 @@ class ProductForm extends Form {
   submitItems = () => {
     const { data } = this.state;
     const { history } = this.props;
-    saveProduct(data);
+    const savedProduct = saveProduct(data);
+
+    if (savedProduct) {
+      if (data._id) {
+        toast.success(data.title + " updated..!");
+      } else if (!data._id) {
+        toast.success(data.title + " added..!");
+      }
+    }
 
     history.push("/products");
   };
